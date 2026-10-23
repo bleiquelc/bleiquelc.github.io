@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' data: blob:; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'" />
+    <meta name="robots" content="noindex" />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" type="image/svg+xml" href="./icons/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0E1420" />
+    <title>INFINITO</title>
+    <link rel="preload" href="./fonts/Outfit-wght.ttf" as="font" type="font/ttf" crossorigin />
+    <style>
+      /* The start page (founder, 17/18-oct; src/ui/entry-gate.ts wires it): the world of the game behind — the whale, the
+         koi, the island with its tree and six of the instruments — and in its luminous clearing INFINITO itself, the
+         crystal that unfolds into the 8 and breathes, which IS the Begin button. Painted before any code, so a judge sees it
+         while the bundle loads. Every moving layer animates transform/opacity only: the compositor draws it (measured 17-oct
+         in headless Chrome: 0 paint, 0 style recalc in 5 s; a box-shadow/filter glow cost x36-x69 on the main thread).
+         It invites a touch (founder, 18-oct: «que invite a tocarlo y se entienda allí existe un botón»): rings of light on the
+         breath's own exhale, an answer to the hand's ray (hover) and the keyboard (focus), a soft press, «Begin» as a pill. */
+      @font-face { font-family: 'Outfit'; src: url('./fonts/Outfit-wght.ttf'); font-weight: 100 900; font-display: block; }
+      :root {
+        --night: #0E1420; --night-2: #151C33; --core: #FFF4D6; --sky: #7CC4EA; --violet: #A694DF; --gold: #F3CF86;
+        --text: #FFF8EE; --text-2: #CFE2F1;
+        --orb: clamp(120px, 29vh, 240px);
+        --breath: 10s; /* the guide's cycle: 4 s in, 6 s out (src/breath/pacer.ts) */
+        --air: calc(26px + var(--orb) * 0.04); /* >= 24 px of air even while INFINITO grows to 1.08 (entering) */
+        --shade: 0 1px 2px rgba(14, 20, 32, 0.55), 0 0 18px rgba(14, 20, 32, 0.75); /* the words over the art: painted once */
+      }
+      /* short windows only: a little less INFINITO pays for the pill's height, so the air rule holds at 700×500 (medir-entrada.mjs) */
+      @media (max-height: 540px) { :root { --orb: clamp(120px, 27vh, 240px); } }
+      .gate {
+        position: fixed; inset: 0; z-index: 5; box-sizing: border-box; padding: 16px 16px 104px; overflow: hidden;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        color: var(--text); font-family: 'Outfit', system-ui, sans-serif; text-align: center;
+        background:
+          radial-gradient(ellipse 60% 55% at 50% 47%, rgba(166, 148, 223, 0.16), transparent 70%),
+          radial-gradient(ellipse 90% 70% at 50% 100%, rgba(124, 196, 234, 0.10), transparent 70%),
+          linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%);
+      }
+      .gate[hidden] { display: none !important; }
+      /* the art (herramientas/entrada/fondo-inicio.py): a blurred placeholder painted at once, the picture fading in over it
+         once decoded. The script below places both so the picture's clearing sits under INFINITO, covering the window;
+         until it runs, cover at the clearing. Still layers: painted once, never per frame. */
+      .art { position: absolute; inset: 0; pointer-events: none; }
+      .art > .lqip, .art img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 49% 49%; }
+      .art > .lqip { background: url(data:image/webp;base64,UklGRgIBAABXRUJQVlA4IPYAAADwBgCdASowABsAPrFGoEmnI6OhMBVdUOAWCWIAqScTBEiiALiPMBQRlymxQqb0otODgd8r4gIYpA+WzAerKz8QAP7ytLjaJhQNdKg87idhPU5VdhDtCZYq+/QKpjhEQiz8WbGws5cpx0NU1RQpOcAgEOiheeoSNYIrB4g8R2Ur08jppNWvOyKWSe7VhaF9IjBhEaimIxRp2MzBbeI9EjfmPf/O5BcOcZUsOHEAHXKIvl9oPT7r+WQhlOE/ZV7X9KscfZrKMNrscP+gZdlnQUKJvM1iBmRtRaD70GczXa1EMt1LOjCVSkGqjMHnJoNsZKZYbiAAAAA=) 49% 49% / cover no-repeat; }
+      .art img { opacity: 0; transition: opacity 0.8s ease; }
+      .art.shown img { opacity: 1; }
+      @media (max-aspect-ratio: 1/1) {
+        .art > .lqip { background-image: url(data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAAAwBQCdASoYACAAPq1ImUmmJKIhMAwAwBWJZACdMtpC+DkRxZoyasnyyxeQ1Twy9INZMAD+qe31LBWGCgby/s8lIcCTQP11pq+FN7nhjnustk/dMYfam8DB2WQ5I5COfWFv908gLFMcCxQdV42UxTpl13Kna6JzrUfQskt8AyIzeC33BioodYjMtW+k9Q0TbSFB14PBO0Q2gALVspGyAAAA); background-position: 50% 49%; }
+        .art img { object-position: 50% 49%; }
+      }
+      .word, .tag, .label, .safe, .begin { position: relative; z-index: 1; } /* the words and INFINITO above the art */
+      /* a little night only right behind the words, wherever the window puts them: the clearing, the whale, the tree and
+         the instruments keep all their light (the microphone pill brings its own). 0.6 at the heart (review 18-oct: at 0.4
+         the words read 3.3-4.4 : 1 over the art; now >= 4.5 : 1 against the mean behind each line at 1280×670, 1920×1080 and
+         390×844 — measured, scratchpad r-inicio-fix/contraste2.mjs) */
+      .word, .tag, .safe { text-shadow: var(--shade); }
+      .word::before, .tag::before, .safe::before {
+        content: ''; position: absolute; inset: -45% -12%; z-index: -1; border-radius: 50%; pointer-events: none;
+        background: radial-gradient(closest-side, rgba(14, 20, 32, 0.6), rgba(14, 20, 32, 0.3) 55%, transparent);
+      }
+      .word { font-weight: 200; font-size: 20px; letter-spacing: 0.42em; margin: 0 0 8px 0.42em; }
+      .tag { font-weight: 300; font-size: clamp(24px, 5vh, 34px); letter-spacing: 0.02em; margin: 0 0 var(--air); }
+      .begin {
+        all: unset; position: relative; z-index: 1; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: var(--air);
+        padding: 0 28px 6px; border-radius: 28px; -webkit-tap-highlight-color: transparent;
+      }
+      .begin:focus-visible { outline: 2px solid rgba(243, 207, 134, 0.8); outline-offset: 6px; }
+      /* its own compositor layer: a still scale on it (hover 1.04, entering 1.08) cost the app's frames ~0.4 ms each without
+         this (measured 18-oct, headless Chrome, app loaded: hover 167-187 ms per 3 s vs 104-105 ms with it, rest 113-123) */
+      .orb { position: relative; width: var(--orb); height: var(--orb); will-change: transform; }
+      .orb > span { position: absolute; border-radius: 50%; pointer-events: none; }
+      /* the halo is a dim night glow: the clearing's own light is INFINITO's halo now (the art), so nothing covers it */
+      .halo {
+        inset: -55%; will-change: transform, opacity; animation: breathe var(--breath) ease-in-out infinite;
+        background: radial-gradient(circle, rgba(255, 244, 214, 0.12) 0%, rgba(243, 207, 134, 0.1) 22%, rgba(124, 196, 234, 0.12) 40%, rgba(166, 148, 223, 0.08) 56%, transparent 70%);
+      }
+      .flare { inset: -70%; opacity: 0; background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(243, 207, 134, 0.32) 20%, rgba(243, 207, 134, 0.1) 42%, transparent 68%); }
+      /* INFINITO itself (founder, 18-oct: «me gusta el C con el infinito»): the app's own crystal and 8 (src/infinito),
+         rendered offline in the calm air tone (herramientas/entrada/infinito-inicio.mjs; element-brand-guardian: no golden
+         burst, no hot gold core), VP9 with alpha. The crystal still until it plays; the unfolding once, then the 8 breathes.
+         A video is its own compositor layer: no paint per frame. Its box is the render's frame, 1.6 × the orb: the 8 (0.61 of the
+         frame) as tall as the orb, so the words keep their air. */
+      .figure { inset: -30%; border-radius: 0; }
+      .figure > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .figure > .still { background: url(./entry/infinito-cristal.webp) center / contain no-repeat; }
+      .figure > video { opacity: 0; }
+      .figure.live > .still { opacity: 0; }
+      .figure.live > .intro, .figure.looping > .loop { opacity: 1; }
+      /* the loop on: the unfolding, ended and frozen on its last frame, goes — after the rule that shows it and one class
+         heavier, so no order can bring it back over the breathing 8 (review 18-oct: it did, the 8 wide and bright, never
+         thinning with the breath; entry-video.test.ts resolves this cascade) */
+      .figure.live.looping > .intro { opacity: 0; visibility: hidden; }
+      /* a browser that draws no video alpha (the script reads one corner of the first frame): the 8, still */
+      .figure.opaque > video { display: none; }
+      .figure.opaque > .still { background-image: url(./entry/infinito-ocho.webp); }
+      .motes { inset: 0; }
+      .mote {
+        position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%; opacity: 0;
+        background: radial-gradient(circle, #FFFFFF 0%, var(--c, var(--gold)) 45%, transparent 75%);
+        will-change: transform, opacity; animation: drift var(--t, 8s) ease-out var(--d, 0s) infinite;
+      }
+      /* the invitation: two rings of light leave INFINITO's rim on the breath's exhale (the guide's own 10 s: no second rhythm),
+         the second a fifth of a breath later, both gone before the next breath in. They always turn, in step with the breath
+         from the first frame (started by .ready they would start mid-breath); only their light is gated, by .ripples. */
+      .ripples { inset: 0; opacity: 0; transition: opacity 1.6s ease; }
+      .ring {
+        position: absolute; inset: 0; border-radius: 50%; opacity: 0; will-change: transform, opacity;
+        animation: ripple var(--breath) cubic-bezier(0.22, 0.6, 0.36, 1) infinite;
+        background: radial-gradient(circle closest-side, transparent 86%, rgba(255, 244, 214, 0.72) 94.5%, rgba(243, 207, 134, 0.45) 97.5%, transparent 100%);
+      }
+      .ring.two {
+        animation-delay: calc(var(--breath) * -0.8);
+        background: radial-gradient(circle closest-side, transparent 88%, rgba(255, 244, 214, 0.42) 95.5%, rgba(124, 196, 234, 0.3) 98%, transparent 100%);
+      }
+      /* «Begin» as a pill of light, edged in gold on a little night: a button at a glance over the art (the left padding
+         carries the letter-spacing the last letter adds on the right, so the word sits centred). Lit on hover/focus by a
+         layer under the words: opacity only. */
+      .label {
+        font-weight: 400; font-size: 24px; line-height: 1; letter-spacing: 0.16em;
+        padding: 8px 26px 8px calc(26px + 0.16em); border-radius: 999px; border: 1px solid rgba(243, 207, 134, 0.6);
+        background: linear-gradient(180deg, rgba(14, 20, 32, 0.42), rgba(14, 20, 32, 0.56));
+        box-shadow: 0 0 18px rgba(243, 207, 134, 0.2);
+      }
+      .label::before {
+        content: ''; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; opacity: 0; transition: opacity 0.45s ease;
+        background: linear-gradient(180deg, rgba(243, 207, 134, 0.34), rgba(255, 244, 214, 0.16));
+        box-shadow: 0 0 28px rgba(243, 207, 134, 0.5);
+      }
+      /* the safety notice in the words' own white (review 18-oct: in --text-2 it read 3.3 : 1 over the island) */
+      .safe { margin: 18px 0 0; font-weight: 300; font-size: 18px; line-height: 1.4; color: var(--text); max-width: 30ch; }
+      .nohs, .micfirst, .gate.no-headset #entry-safety, .gate.mic-first #entry-safety { display: none; }
+      .gate.no-headset .nohs { display: block; }
+      .gate.mic-first .micfirst { display: block; } /* Begin pinched while the microphone question waits (entry-gate.ts) */
+      /* DEV: the HUD and its key card (src/debug) stand aside while the gate shows: the brand and tagline were under them */
+      #entry:not([hidden]) ~ #infinito-hud, #entry:not([hidden]) ~ #infinito-keys { display: none; }
+      /* loading (painted before the code) and failed: INFINITO small and dim, no label, nothing to press */
+      .orb, .label, .flare, .motes { transition: transform 1.6s ease, opacity 1.6s ease; }
+      .gate:not(.ready) .begin { cursor: default; }
+      .gate:not(.ready) .orb { transform: scale(0.82); opacity: 0.75; }
+      .gate:not(.ready) .label { opacity: 0; }
+      .gate.failed .orb { opacity: 0.35; }
+      /* entering: the pinch was heard — INFINITO grows and brightens until the session comes */
+      /* the invitation shows only while a pinch would enter: not loading or failed, not once heard, not where no headset can enter */
+      .gate.ready:not(.entering):not(.no-headset) .ripples { opacity: 1; }
+      .gate.entering .ripples { transition-duration: 0.5s; }
+      /* the hand's ray (hover) or the keyboard (focus): INFINITO grows a little and brightens, the pill lights, the rings rest.
+         Every pointed rule waits for :not(.entering): the ray stays on it after the pinch, and a hover that outranked
+         entering held its flare at 0.45 instead of 1 (measured 18-oct). A press gives a little. */
+      .gate.ready:not(.entering) .begin:is(:hover, :focus-visible) .orb { transform: scale(1.04); transition-duration: 0.45s; }
+      .gate.ready:not(.entering) .begin:is(:hover, :focus-visible) .flare { opacity: 0.45; transition-duration: 0.45s; }
+      .gate.ready:not(.entering) .begin:is(:hover, :focus-visible) .label::before { opacity: 1; }
+      .gate.ready:not(.entering) .begin:is(:hover, :focus-visible) .ripples { opacity: 0; transition-duration: 0.6s; }
+      .gate.ready:not(.entering) .begin:active :is(.orb, .label) { transform: scale(0.98); transition-duration: 0.12s; }
+      .gate.entering .orb { transform: scale(1.08); transition-duration: 0.9s; }
+      .gate.entering .flare { opacity: 1; transition-duration: 0.9s; }
+      .gate.entering .motes { transform: scale(1.3); transition-duration: 2.4s; }
+      .gate.entering .label { opacity: 0.55; }
+      @keyframes breathe { 0% { transform: scale(0.94); opacity: 0.65; } 40% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(0.94); opacity: 0.65; } }
+      @keyframes ripple {
+        0%, 40% { transform: scale(1); opacity: 0; }
+        46% { opacity: 0.9; }
+        62% { opacity: 0.45; }
+        80%, 100% { transform: scale(1.45); opacity: 0; }
+      }
+      @keyframes drift {
+        0% { transform: translate(calc(var(--x) * var(--orb) * 0.35), calc(var(--y) * var(--orb) * 0.35)) scale(0.6); opacity: 0; }
+        25% { opacity: 0.95; }
+        100% { transform: translate(calc(var(--x) * var(--orb)), calc(var(--y) * var(--orb) - var(--orb) * 0.22)) scale(1.1); opacity: 0; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .halo, .mote, .ring { animation: none; }
+        .mote, .ripples { display: none; }
+        .halo { opacity: 0.85; }
+        /* INFINITO still: the 8 (its picture fetched only here), the videos never played (the script asks first) */
+        .figure > video { display: none; }
+        .figure > .still { background-image: url(./entry/infinito-ocho.webp); }
+        /* nor does INFINITO grow or shrink with its states (review 18-oct): they change its light only */
+        .orb, .motes { transition-property: opacity; }
+        .gate:not(.ready) .orb, .gate.entering .orb, .gate.entering .motes { transform: none; }
+        /* hover, focus and a press change the light only (the flare, the pill's light): never the size */
+        .gate.ready:not(.entering) .begin:is(:hover, :focus-visible, :active) :is(.orb, .label) { transform: none; }
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-BoX1paKR.js"></script>
+  </head>
+  <body style="margin: 0">
+    <div id="scene-container"></div>
+    <div id="entry" class="gate">
+      <!-- the art: herramientas/entrada/fondo-inicio.py (clearing measured there; data-* are its numbers). sizes: the width it
+           is drawn, cover × the zoom the clearing takes (1.10 on the Quest panel, at most 1.3), or the panel upscales its 1280 -->
+      <div class="art" aria-hidden="true" data-aspect="1.7917" data-clearing="0.4916 0.4931" data-aspect-tall="0.75" data-clearing-tall="0.4999 0.4931">
+        <span class="lqip"></span>
+        <picture>
+          <source type="image/avif" media="(max-aspect-ratio: 1/1)" sizes="calc(max(100vw, 75vh) * 1.15)" srcset="./entry/fondo-alto-720.avif 720w, ./entry/fondo-alto-1080.avif 1080w, ./entry/fondo-alto-1440.avif 1440w" />
+          <source type="image/webp" media="(max-aspect-ratio: 1/1)" sizes="calc(max(100vw, 75vh) * 1.15)" srcset="./entry/fondo-alto-720.webp 720w, ./entry/fondo-alto-1080.webp 1080w, ./entry/fondo-alto-1440.webp 1440w" />
+          <source type="image/avif" sizes="calc(max(100vw, 179vh) * 1.15)" srcset="./entry/fondo-1280.avif 1280w, ./entry/fondo-1920.avif 1920w, ./entry/fondo-2560.avif 2560w" />
+          <img id="entry-art" alt="" decoding="async" sizes="calc(max(100vw, 179vh) * 1.15)" src="./entry/fondo-1920.webp" srcset="./entry/fondo-1280.webp 1280w, ./entry/fondo-1920.webp 1920w, ./entry/fondo-2560.webp 2560w" />
+        </picture>
+      </div>
+      <p id="entry-word" class="word">INFINITO</p>
+      <p id="entry-tagline" class="tag">Breathe. The room opens.</p>
+      <button id="entry-begin" class="begin" type="button" disabled aria-disabled="true">
+        <span class="orb" aria-hidden="true">
+          <span class="halo"></span>
+          <span class="flare"></span>
+          <span class="ripples"><span class="ring"></span><span class="ring two"></span></span>
+          <span class="figure">
+            <span class="still"></span>
+            <video class="loop" src="./entry/infinito-ocho.webm" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback></video>
+            <video class="intro" src="./entry/infinito-despliegue.webm" muted playsinline preload="none" disablepictureinpicture disableremoteplayback></video>
+          </span>
+          <span class="motes">
+            <span class="mote" style="--x: -0.65; --y: -0.48; --d: -0.4s; --t: 7s"></span>
+            <span class="mote" style="--x: 0.7; --y: -0.38; --d: -1.6s; --t: 8s; --c: #7CC4EA"></span>
+            <span class="mote" style="--x: -0.81; --y: 0.11; --d: -2.9s; --t: 9s; --c: #A694DF"></span>
+            <span class="mote" style="--x: 0.81; --y: 0.22; --d: -3.7s; --t: 7.5s"></span>
+            <span class="mote" style="--x: -0.32; --y: -0.81; --d: -4.6s; --t: 8.5s; --c: #FFF4D6"></span>
+            <span class="mote" style="--x: 0.38; --y: -0.86; --d: -5.3s; --t: 9s; --c: #7CC4EA"></span>
+            <span class="mote" style="--x: -0.59; --y: 0.59; --d: -1.1s; --t: 8s; --c: #A694DF"></span>
+            <span class="mote" style="--x: 0.56; --y: 0.65; --d: -2.2s; --t: 7s"></span>
+            <span class="mote" style="--x: -0.16; --y: -0.94; --d: -6.1s; --t: 9.5s"></span>
+            <span class="mote" style="--x: 0.94; --y: -0.11; --d: -0.9s; --t: 8.5s; --c: #FFF4D6"></span>
+            <span class="mote" style="--x: -0.94; --y: -0.22; --d: -3.2s; --t: 7.5s; --c: #7CC4EA"></span>
+            <span class="mote" style="--x: 0.11; --y: 0.91; --d: -4.1s; --t: 9s; --c: #A694DF"></span>
+          </span>
+        </span>
+        <span id="entry-label" class="label">Begin</span>
+      </button>
+      <!-- the words: src/ui/entry-copy.ts, one line each (filled by herramientas/vite-entry-copy-plugin.ts in dev and build) -->
+      <p id="entry-safety" class="safe">Be aware of your surroundings and the objects around you.</p>
+      <p id="entry-no-headset" class="safe nohs">Open this page in your headset&#39;s browser to begin.</p>
+      <p id="entry-mic-first" class="safe micfirst" aria-live="polite">Answer the microphone question first, then begin.</p>
+    </div>
+    <script>
+      // The art and INFINITO, before any bundle (the page is the judge's first sight while the app loads). Events only:
+      // nothing runs per frame. entry-gate.ts pauses the videos in the session and plays them again after it.
+      (() => {
+        const gate = document.getElementById('entry'), art = gate.querySelector('.art'), orb = gate.querySelector('.orb');
+        const img = document.getElementById('entry-art'), lqip = art.querySelector('.lqip');
+        /** Pure: the art's box so the clearing (cx, cy: fractions of the picture) sits on INFINITO's centre (ox, oy), the
+         *  window always covered; zoomed at most zoomMax past cover — beyond that, cover wins over the clearing. */
+        function entryArtPlacement(vw, vh, ox, oy, aspect, cx, cy, zoomMax) {
+          const cover = Math.max(vw, vh * aspect);
+          const need = Math.max(cover, ox / cx, (vw - ox) / (1 - cx), (aspect * oy) / cy, (aspect * (vh - oy)) / (1 - cy));
+          const w = Math.min(need, cover * zoomMax), h = w / aspect;
+          return { w, h, x: Math.min(0, Math.max(vw - w, ox - cx * w)), y: Math.min(0, Math.max(vh - h, oy - cy * h)) };
+        }
+        const place = () => {
+          const r = orb.getBoundingClientRect();
+          if (!r.width) return; // the gate put away (the session): placed again when it comes back
+          const tall = matchMedia('(max-aspect-ratio: 1/1)').matches, d = art.dataset;
+          const [cx, cy] = (tall ? d.clearingTall : d.clearing).split(' ').map(Number);
+          const p = entryArtPlacement(innerWidth, innerHeight, r.left + r.width / 2, r.top + r.height / 2, Number(tall ? d.aspectTall : d.aspect), cx, cy, 1.3);
+          for (const el of [img, lqip]) el.style.cssText = `width:${p.w}px;height:${p.h}px;transform:translate(${p.x}px,${p.y}px)`;
+        };
+        place();
+        new ResizeObserver(place).observe(gate); // the window's size, and the gate shown again after a session
+        document.fonts?.ready.then(place); // the words' own font moves INFINITO a few px
+        img.decode().then(() => art.classList.add('shown'), () => {}); // (a picture that never came leaves the placeholder)
+        const fig = gate.querySelector('.figure'), intro = fig.querySelector('.intro'), loop = fig.querySelector('.loop');
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // the 8 still (CSS); no video is fetched
+        // the page's breath (halo, rings) in step with INFINITO's: the clock the video shows is that breath's (the unfolding
+        // starts 3 s into a cycle, on the exhale as in the welcome; the loop starts at the unfolding's 3.6 s)
+        const breathe = (video, cycleMs) => {
+          const start = document.timeline.currentTime - video.currentTime * 1000 - cycleMs;
+          for (const a of gate.getAnimations({ subtree: true })) if (a.animationName === 'breathe' || a.animationName === 'ripple') a.startTime = start;
+        };
+        // a browser that draws no alpha (one corner of the first frame, 4 × 4 px, once) keeps the 8 still instead
+        const clear = (video) => {
+          try { const c = document.createElement('canvas'); c.width = c.height = 4; const g = c.getContext('2d'); g.drawImage(video, 0, 0, 4, 4); return g.getImageData(0, 0, 1, 1).data[3] < 128; } catch { return true; }
+        };
+        // halfway through the unfolding the 8's loop starts to load, so it is there when the unfolding ends (no hold, no jump
+        // of the halo); not before (on a Mac the gate is ready by then), never where the 8 stays still
+        const early = () => { if (intro.currentTime < 1.8) return; intro.removeEventListener('timeupdate', early); loop.preload = 'auto'; };
+        let seen = false;
+        intro.addEventListener('playing', () => {
+          if (!seen) { seen = true; if (!clear(intro)) { intro.pause(); fig.classList.add('opaque'); return; } fig.classList.add('live'); intro.addEventListener('timeupdate', early); }
+          breathe(intro, 3000);
+        });
+        intro.addEventListener('ended', () => { if (!fig.classList.contains('opaque')) loop.play().catch(() => {}); }, { once: true });
+        // (Chrome fires playing again at each wrap of the loop, so the breath is set again every 10 s: measured 18-oct)
+        loop.addEventListener('playing', () => { fig.classList.add('looping'); breathe(loop, 6600); });
+        // muted: a browser lets it play without a gesture; one that refuses gets the 8 still, never the crystal for good (a
+        // pause before it starts — the session, a failed gate — aborts it: no refusal)
+        intro.play().catch((e) => { if (!seen && e?.name !== 'AbortError') fig.classList.add('opaque'); });
+      })();
+    </script>
+  </body>
+</html>

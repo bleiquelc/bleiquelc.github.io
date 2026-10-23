@@ -1,0 +1,171 @@
+<!-- Image paths are relative to the page, not to this file. The arrival (founder, 7-oct: "it must feel like the brand, not a settings card"): the upright 8, then INFINITO and the tagline in Outfit (an image: herramientas/fuentes/lema-outfit.py),
+the colour of your sky (seven, light to deep; the chosen one ringed in gold and named) and how long. Light text on the dusk
+pane of the hand cards, drawn behind it in code (src/ui/dusk-pane.ts); the root itself has no surface. Authored in cm at
+the final card's scale and shown at ARRIVAL.scale. Chosen with a hand ray and a pinch. -->
+<style>
+  .arrival-root {
+    flex-direction: column;
+    align-items: center;
+    width: 100;
+    padding-top: 6;
+    padding-bottom: 6;
+    padding-left: 7;
+    padding-right: 7;
+  }
+  .arrival-mark {
+    width: 14;
+    height: 14;
+  }
+  .arrival-brand {
+    width: 54;
+    height: 10.73;
+    margin-top: 1.4;
+  }
+  .arrival-question {
+    text-align: center;
+    font-size: 3.8;
+    font-weight: 400;
+    letter-spacing: 0.3;
+    line-height: 1.3;
+    margin-top: 4.2;
+    color: #BFE3F6;
+  }
+  .arrival-sky-row {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 86;
+    margin-top: 3.2;
+  }
+  .arrival-sky {
+    width: 10.4;
+    height: 10.4;
+    border-radius: 5.2;
+    border-width: 0.3;
+    border-color: #FFFFFF;
+    cursor: pointer;
+  }
+  .sky-morningAir {
+    background-color: #7CC4EA;
+  }
+  .sky-clearSky {
+    background-color: #4FA3E0;
+  }
+  .sky-azure {
+    background-color: #3478CC;
+  }
+  .sky-lavender {
+    background-color: #A694DF;
+  }
+  .sky-violet {
+    background-color: #7B5CD1;
+  }
+  .sky-indigo {
+    background-color: #4B3FA8;
+  }
+  .sky-deepNight {
+    background-color: #1F2A6B;
+  }
+  .arrival-sky-ends {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 86;
+    margin-top: 1.8;
+  }
+  .arrival-sky-end {
+    font-size: 3.6;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.72);
+  }
+  .arrival-sky-names {
+    flex-direction: row;
+    justify-content: center;
+    width: 86;
+    margin-top: 1.2;
+  }
+  .arrival-sky-name {
+    display: none;
+    width: 40;
+    text-align: center;
+    font-size: 3.8;
+    font-weight: 400;
+    letter-spacing: 0.3;
+    color: #F3CF86;
+  }
+  .arrival-choices {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4;
+    margin-top: 3.4;
+  }
+  .arrival-choice {
+    width: 38;
+    height: 12;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6;
+    border-width: 0.3;
+    border-color: #BFE3F6;
+    background-color: rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    font-size: 4.2;
+    font-weight: 300;
+    letter-spacing: 0.3;
+    color: #FFF8EE;
+  }
+  .arrival-choice:hover {
+    background-color: rgba(243, 207, 134, 0.22);
+    border-color: #F3CF86;
+  }
+  .arrival-hint {
+    text-align: center;
+    font-size: 3.6;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-top: 3.6;
+    color: rgba(255, 255, 255, 0.62);
+  }
+  .arrival-room {
+    display: none;
+    text-align: center;
+    font-size: 3;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-top: 3;
+    color: #F3CF86;
+  }
+</style>
+<div class="arrival-root">
+  <img id="arrival-mark" class="arrival-mark" src="./icons/icon-spatial-180.png" />
+  <img id="arrival-brand" class="arrival-brand" src="./ui/arrival-brand.png" />
+  <div id="arrival-sky-question" class="arrival-question">Choose your sky</div>
+  <div class="arrival-sky-row">
+    <button id="arrival-sky-morningAir" class="arrival-sky sky-morningAir"></button>
+    <button id="arrival-sky-clearSky" class="arrival-sky sky-clearSky"></button>
+    <button id="arrival-sky-azure" class="arrival-sky sky-azure"></button>
+    <button id="arrival-sky-lavender" class="arrival-sky sky-lavender"></button>
+    <button id="arrival-sky-violet" class="arrival-sky sky-violet"></button>
+    <button id="arrival-sky-indigo" class="arrival-sky sky-indigo"></button>
+    <button id="arrival-sky-deepNight" class="arrival-sky sky-deepNight"></button>
+  </div>
+  <div class="arrival-sky-ends">
+    <div class="arrival-sky-end">Lighter for mornings</div>
+    <div class="arrival-sky-end">Deeper for evenings</div>
+  </div>
+  <div class="arrival-sky-names">
+    <div id="arrival-sky-name-morningAir" class="arrival-sky-name">Morning air</div>
+    <div id="arrival-sky-name-clearSky" class="arrival-sky-name">Clear sky</div>
+    <div id="arrival-sky-name-azure" class="arrival-sky-name">Azure</div>
+    <div id="arrival-sky-name-lavender" class="arrival-sky-name">Lavender</div>
+    <div id="arrival-sky-name-violet" class="arrival-sky-name">Violet</div>
+    <div id="arrival-sky-name-indigo" class="arrival-sky-name">Indigo</div>
+    <div id="arrival-sky-name-deepNight" class="arrival-sky-name">Deep night</div>
+  </div>
+  <div id="arrival-question" class="arrival-question">How long would you like?</div>
+  <div class="arrival-choices">
+    <button id="arrival-full" class="arrival-choice">10 minutes</button>
+    <button id="arrival-quick" class="arrival-choice">5 minutes</button>
+  </div>
+  <div id="arrival-hint" class="arrival-hint">Point and pinch to choose</div>
+  <div id="arrival-room" class="arrival-room">Without your room's walls, the sky opens all around you.</div>
+</div>

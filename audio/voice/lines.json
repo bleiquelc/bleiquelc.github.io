@@ -1,0 +1,253 @@
+{
+  "voice": "G: Parler-TTS Mini v1 calida seed 11 (synthetic prompt)",
+  "speed": 1.0,
+  "model": "ResembleAI/chatterbox",
+  "post": "chatterbox-g",
+  "loudness": -20.0,
+  "reference": "g-parler-mini-calida-s11.wav",
+  "settings": {
+    "exaggeration": 0.3,
+    "cfg_weight": 0.3,
+    "temperature": 0.7
+  },
+  "lines": {
+    "hello": {
+      "text": "Hi, I'm INFINITO.",
+      "file": "audio/voice/hello.mp3",
+      "seconds": 1.88,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "breathe": {
+      "text": "Breathe in slowly... and let it out.",
+      "file": "audio/voice/breathe.mp3",
+      "seconds": 3.88,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "wake": {
+      "text": "Your breath opened the room.",
+      "file": "audio/voice/wake.mp3",
+      "seconds": 2.18,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "wakeTime": {
+      "text": "The room is opening.",
+      "file": "audio/voice/wakeTime.mp3",
+      "seconds": 1.88,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "firstSound": {
+      "text": "Listen. Your hands made that sound.",
+      "file": "audio/voice/firstSound.mp3",
+      "seconds": 3.35,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "firstSoundMusic": {
+      "text": "Listen. The music is waking.",
+      "file": "audio/voice/firstSoundMusic.mp3",
+      "seconds": 3.74,
+      "seed": 23,
+      "lufs": -20.0
+    },
+    "exit": {
+      "text": "To leave at any time, point at the small card low on your right and pinch.",
+      "file": "audio/voice/exit.mp3",
+      "seconds": 5.64,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "exitAsk": {
+      "text": "Leave the session? Pinch the card again.",
+      "file": "audio/voice/exitAsk.mp3",
+      "seconds": 2.95,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "exitStay": {
+      "text": "Let's stay.",
+      "file": "audio/voice/exitStay.mp3",
+      "seconds": 1.66,
+      "seed": 163,
+      "lufs": -20.0
+    },
+    "exitBye": {
+      "text": "Thank you. See you tomorrow.",
+      "file": "audio/voice/exitBye.mp3",
+      "seconds": 2.46,
+      "seed": 23,
+      "lufs": -20.0
+    },
+    "firstBreath": {
+      "text": "Breathe in with the light... and let it out, slower.",
+      "file": "audio/voice/firstBreath.mp3",
+      "seconds": 4.78,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "instruments": {
+      "text": "Raise your hands and shape them like the card shows.",
+      "file": "audio/voice/instruments.mp3",
+      "seconds": 3.58,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "gongWaits": {
+      "text": "The gong waits for five instruments.",
+      "file": "audio/voice/gongWaits.mp3",
+      "seconds": 2.8,
+      "seed": 23,
+      "lufs": -20.0
+    },
+    "holdToPlay": {
+      "text": "Hold the shape, and the instrument keeps playing.",
+      "file": "audio/voice/holdToPlay.mp3",
+      "seconds": 3.52,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "layerInvite": {
+      "text": "Would you like another layer of sound? Hold the shape the card shows.",
+      "file": "audio/voice/layerInvite.mp3",
+      "seconds": 5.7,
+      "seed": 7,
+      "lufs": -19.9
+    },
+    "choice": {
+      "text": "Choose your sky, then how long.",
+      "file": "audio/voice/choice.mp3",
+      "seconds": 2.86,
+      "seed": 11,
+      "lufs": -20.0
+    },
+    "landing": {
+      "text": "Let it all settle.",
+      "file": "audio/voice/landing.mp3",
+      "seconds": 2.08,
+      "seed": 71,
+      "lufs": -20.0
+    },
+    "guideTall": {
+      "text": "Sit tall, as if a thread lifts you.",
+      "file": "audio/voice/guideTall.mp3",
+      "seconds": 2.86,
+      "seed": 11,
+      "lufs": -20.0
+    },
+    "guideBack": {
+      "text": "Let your back rise, tall and easy.",
+      "file": "audio/voice/guideBack.mp3",
+      "seconds": 3.04,
+      "seed": 31,
+      "lufs": -20.0
+    },
+    "guideShoulders": {
+      "text": "Let your shoulders fall away from your ears.",
+      "file": "audio/voice/guideShoulders.mp3",
+      "seconds": 3.08,
+      "seed": 7,
+      "lufs": -20.1
+    },
+    "guideSoften": {
+      "text": "Soften your jaw, your hands, your face.",
+      "file": "audio/voice/guideSoften.mp3",
+      "seconds": 4.18,
+      "seed": 59,
+      "lufs": -19.9
+    },
+    "guideBelly": {
+      "text": "Feel the air move low in your belly.",
+      "file": "audio/voice/guideBelly.mp3",
+      "seconds": 3.04,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "guideLong": {
+      "text": "Keep your back long and easy.",
+      "file": "audio/voice/guideLong.mp3",
+      "seconds": 2.12,
+      "seed": 11,
+      "lufs": -20.0
+    },
+    "guideSlower": {
+      "text": "Let each breath out be a little longer.",
+      "file": "audio/voice/guideSlower.mp3",
+      "seconds": 3.02,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "guideNotice": {
+      "text": "Notice the pace of your breath.",
+      "file": "audio/voice/guideNotice.mp3",
+      "seconds": 2.16,
+      "seed": 11,
+      "lufs": -20.1
+    },
+    "arrive": {
+      "text": "You're here now. Just breathe.",
+      "file": "audio/voice/arrive.mp3",
+      "seconds": 3.02,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "wavesDrift": {
+      "text": "Watch the waves of light drift.",
+      "file": "audio/voice/wavesDrift.mp3",
+      "seconds": 2.18,
+      "seed": 11,
+      "lufs": -20.1
+    },
+    "noHurry": {
+      "text": "There's no hurry. Take your time.",
+      "file": "audio/voice/noHurry.mp3",
+      "seconds": 2.68,
+      "seed": 47,
+      "lufs": -20.0
+    },
+    "onlyThis": {
+      "text": "Only this breath. Then the next.",
+      "file": "audio/voice/onlyThis.mp3",
+      "seconds": 3.77,
+      "seed": 31,
+      "lufs": -20.0
+    },
+    "musicHold": {
+      "text": "Let the music hold you for a while.",
+      "file": "audio/voice/musicHold.mp3",
+      "seconds": 2.7,
+      "seed": 71,
+      "lufs": -20.0
+    },
+    "between": {
+      "text": "Feel the quiet between the notes.",
+      "file": "audio/voice/between.mp3",
+      "seconds": 2.68,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "landWaves": {
+      "text": "Let the waves of light grow still.",
+      "file": "audio/voice/landWaves.mp3",
+      "seconds": 2.48,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "keepCalm": {
+      "text": "Keep this calm with you.",
+      "file": "audio/voice/keepCalm.mp3",
+      "seconds": 2.08,
+      "seed": 31,
+      "lufs": -20.0
+    },
+    "thanks": {
+      "text": "Thank you for breathing with me.",
+      "file": "audio/voice/thanks.mp3",
+      "seconds": 1.88,
+      "seed": 47,
+      "lufs": -20.0
+    }
+  }
+}
