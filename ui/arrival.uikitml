@@ -164,8 +164,9 @@ the final card's scale and shown at ARRIVAL.scale. Chosen with a hand ray and a 
   <div id="arrival-question" class="arrival-question">How long would you like?</div>
   <div class="arrival-choices">
     <button id="arrival-full" class="arrival-choice">10 minutes</button>
-    <button id="arrival-quick" class="arrival-choice">5 minutes</button>
+    <button id="arrival-quick" class="arrival-choice">7 minutes</button>
   </div>
   <div id="arrival-hint" class="arrival-hint">Point and pinch to choose</div>
   <div id="arrival-room" class="arrival-room">Without your room's walls, the sky opens all around you.</div>
+  <div id="arrival-window" class="arrival-room">Face the window. The sky begins there.</div>
 </div>

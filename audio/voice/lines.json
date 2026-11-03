@@ -21,8 +21,8 @@
     "breathe": {
       "text": "Breathe in slowly... and let it out.",
       "file": "audio/voice/breathe.mp3",
-      "seconds": 3.88,
-      "seed": 7,
+      "seconds": 3.9,
+      "seed": 97,
       "lufs": -20.0
     },
     "wake": {
