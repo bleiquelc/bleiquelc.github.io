@@ -161,7 +161,7 @@ the final card's scale and shown at ARRIVAL.scale. Chosen with a hand ray and a 
     <div id="arrival-sky-name-indigo" class="arrival-sky-name">Indigo</div>
     <div id="arrival-sky-name-deepNight" class="arrival-sky-name">Deep night</div>
   </div>
-  <div id="arrival-question" class="arrival-question">How long would you like?</div>
+  <div id="arrival-question" class="arrival-question">Choose how many minutes you'd like for this session.</div>
   <div class="arrival-choices">
     <button id="arrival-full" class="arrival-choice">10 minutes</button>
     <button id="arrival-quick" class="arrival-choice">7 minutes</button>

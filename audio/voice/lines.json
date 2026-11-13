@@ -117,9 +117,9 @@
       "lufs": -19.9
     },
     "choice": {
-      "text": "Choose your sky, then how long.",
+      "text": "Choose your sky, then how many minutes you'd like.",
       "file": "audio/voice/choice.mp3",
-      "seconds": 2.86,
+      "seconds": 3.64,
       "seed": 11,
       "lufs": -20.0
     },

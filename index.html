@@ -17,7 +17,7 @@
     <link rel="preload" href="./fonts/Outfit-wght.ttf" as="font" type="font/ttf" crossorigin />
     <style>
       /* The start page (founder, 17/18-oct; src/ui/entry-gate.ts wires it): the world of the game behind — the whale, the
-         koi, the island with its tree and six of the instruments — and in its luminous clearing INFINITO itself, the
+         koi, the island with its tree, its pools full and the white stag, and the seven instruments (art of 3-nov) — and in its luminous clearing INFINITO itself, the
          crystal that unfolds into the 8 and breathes, which IS the Begin button. Painted before any code, so a judge sees it
          while the bundle loads. Every moving layer animates transform/opacity only: the compositor draws it (measured 17-oct
          in headless Chrome: 0 paint, 0 style recalc in 5 s; a box-shadow/filter glow cost x36-x69 on the main thread).
@@ -44,16 +44,23 @@
           linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%);
       }
       .gate[hidden] { display: none !important; }
+      /* DEV ?entrada-negro=suave (src/ui/entry-dark.ts, fila 159: «la interfaz se coloca negro muy rápido»): the page is night
+         under the gate, never the browser's white, and while the pinch asks for the session the gate fades to that night —
+         the panel is already dark when the browser hands the view to the session (its black is the platform's, not a frame
+         of ours: docs/diseno/2026-11-10-pulido/entrada-negro.md). Opacity only; a request with no session fades it back. */
+      html.dark-entry { background: var(--night); }
+      html.dark-entry .gate::after { content: ''; position: absolute; inset: 0; z-index: 2; background: var(--night); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+      html.dark-entry .gate.entering::after { opacity: 1; transition: opacity 0.4s ease 0.1s; }
       /* the art (herramientas/entrada/fondo-inicio.py): a blurred placeholder painted at once, the picture fading in over it
          once decoded. The script below places both so the picture's clearing sits under INFINITO, covering the window;
          until it runs, cover at the clearing. Still layers: painted once, never per frame. */
       .art { position: absolute; inset: 0; pointer-events: none; }
       .art > .lqip, .art img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 49% 49%; }
-      .art > .lqip { background: url(data:image/webp;base64,UklGRgIBAABXRUJQVlA4IPYAAADwBgCdASowABsAPrFGoEmnI6OhMBVdUOAWCWIAqScTBEiiALiPMBQRlymxQqb0otODgd8r4gIYpA+WzAerKz8QAP7ytLjaJhQNdKg87idhPU5VdhDtCZYq+/QKpjhEQiz8WbGws5cpx0NU1RQpOcAgEOiheeoSNYIrB4g8R2Ur08jppNWvOyKWSe7VhaF9IjBhEaimIxRp2MzBbeI9EjfmPf/O5BcOcZUsOHEAHXKIvl9oPT7r+WQhlOE/ZV7X9KscfZrKMNrscP+gZdlnQUKJvM1iBmRtRaD70GczXa1EMt1LOjCVSkGqjMHnJoNsZKZYbiAAAAA=) 49% 49% / cover no-repeat; }
+      .art > .lqip { background: url(data:image/webp;base64,UklGRgoBAABXRUJQVlA4IP4AAADQBgCdASowABsAPrVMnUmnJKKhMAgA4BaJZACnR2dBcElWokmj+NA//4UHr637eqfW6kN1LRQTdbA//87EDgAA/u6c+DZ+iPRrURfdokJb8yufxQ34X5K7gbX6WWzjnk14xPTQd+hRht734+TAS9TfCPz0pfbU+2Dtr+3zC4W52PJPQzxB2JgIUo14xaZdKKFkxM+oStAAB6TS+vzvBVSQjzkLfhGJxZezQ1iPYbxnTrVz9/MsUa3++p/4ZLguMQ5k8Cnfa2tBBA7sePZg6CSdJoaNHYXJtWNdaIPlDYyu056XxVDvFSgPh1vPVZ3e7K9Cmrt4ZLeI/UFgR/YAAA==) 49% 49% / cover no-repeat; }
       .art img { opacity: 0; transition: opacity 0.8s ease; }
       .art.shown img { opacity: 1; }
       @media (max-aspect-ratio: 1/1) {
-        .art > .lqip { background-image: url(data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAAAwBQCdASoYACAAPq1ImUmmJKIhMAwAwBWJZACdMtpC+DkRxZoyasnyyxeQ1Twy9INZMAD+qe31LBWGCgby/s8lIcCTQP11pq+FN7nhjnustk/dMYfam8DB2WQ5I5COfWFv908gLFMcCxQdV42UxTpl13Kna6JzrUfQskt8AyIzeC33BioodYjMtW+k9Q0TbSFB14PBO0Q2gALVspGyAAAA); background-position: 50% 49%; }
+        .art > .lqip { background-image: url(data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAABwBQCdASoYACAAPqlGnEmmJCMhMAwAwBUJZACdMoGv/gPGwATLOK98v4UZePpPVVmUXf7YAP6plddFI3ZCmgxT+LsB/hzyOc5/p0N9MYCU5ytH0Yjmi1BFJR5b1Ey1iP2BvRHRa9xVW4osBc4XpAzeq9yqQ9I+uxptKCDPkXU5/xF0pxPS3vY0OjLYaE3f2DG5SHCdgAA=); background-position: 50% 49%; }
         .art img { object-position: 50% 49%; }
       }
       .word, .tag, .label, .safe, .begin { position: relative; z-index: 1; } /* the words and INFINITO above the art */
@@ -139,6 +146,16 @@
       .nohs, .micfirst, .gate.no-headset #entry-safety, .gate.mic-first #entry-safety { display: none; }
       .gate.no-headset .nohs { display: block; }
       .gate.mic-first .micfirst { display: block; } /* Begin pinched while the microphone question waits (entry-gate.ts) */
+      /* privacy and credits (A8/B8, 5-nov): a small link in the top corner, far from Begin and the microphone pill (bottom
+         left, mic-ask.ts); the words' own shade over the art; lit on hover/focus by opacity only, like every pointed rule
+         here once the gate is ready and not entering (entry-invite.test.ts) */
+      .legal {
+        position: absolute; top: 12px; right: 14px; z-index: 1; padding: 8px 10px; border-radius: 999px;
+        font-weight: 300; font-size: 14px; letter-spacing: 0.04em; color: var(--text); text-decoration: none;
+        background: rgba(14, 20, 32, 0.5); opacity: 0.85; transition: opacity 0.45s ease; /* a little night, as Begin's pill */
+      }
+      .gate.ready:not(.entering) .legal:is(:hover, :focus-visible) { opacity: 1; }
+      .gate.ready:not(.entering) .legal:focus-visible { outline: 2px solid rgba(243, 207, 134, 0.8); outline-offset: 2px; }
       /* DEV: the HUD and its key card (src/debug) stand aside while the gate shows: the brand and tagline were under them */
       #entry:not([hidden]) ~ #infinito-hud, #entry:not([hidden]) ~ #infinito-keys { display: none; }
       /* loading (painted before the code) and failed: INFINITO small and dim, no label, nothing to press */
@@ -189,14 +206,14 @@
         .gate.ready:not(.entering) .begin:is(:hover, :focus-visible, :active) :is(.orb, .label) { transform: none; }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-DVq1NAJ9.js"></script>
+    <script type="module" crossorigin src="./assets/index-BuEEBFHm.js"></script>
   </head>
   <body style="margin: 0">
     <div id="scene-container"></div>
     <div id="entry" class="gate">
       <!-- the art: herramientas/entrada/fondo-inicio.py (clearing measured there; data-* are its numbers). sizes: the width it
            is drawn, cover × the zoom the clearing takes (1.10 on the Quest panel, at most 1.3), or the panel upscales its 1280 -->
-      <div class="art" aria-hidden="true" data-aspect="1.7917" data-clearing="0.4916 0.4931" data-aspect-tall="0.75" data-clearing-tall="0.4999 0.4931">
+      <div class="art" aria-hidden="true" data-aspect="1.7917" data-clearing="0.495 0.44" data-aspect-tall="0.75" data-clearing-tall="0.5002 0.44">
         <span class="lqip"></span>
         <picture>
           <source type="image/avif" media="(max-aspect-ratio: 1/1)" sizes="calc(max(100vw, 75vh) * 1.15)" srcset="./entry/fondo-alto-720.avif 720w, ./entry/fondo-alto-1080.avif 1080w, ./entry/fondo-alto-1440.avif 1440w" />
@@ -238,6 +255,7 @@
       <p id="entry-safety" class="safe">Be aware of your surroundings and the objects around you.</p>
       <p id="entry-no-headset" class="safe nohs">Open this page in your headset&#39;s browser to begin.</p>
       <p id="entry-mic-first" class="safe micfirst" aria-live="polite">Answer the microphone question first, then begin.</p>
+      <a id="entry-legal" class="legal" href="./privacy.html">Privacy and credits</a>
     </div>
     <script>
       // The art and INFINITO, before any bundle (the page is the judge's first sight while the app loads). Events only:

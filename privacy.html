@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' data: blob:; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'" />
+    <meta name="robots" content="noindex" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0E1420" />
+    <link rel="icon" type="image/svg+xml" href="./icons/favicon.svg" />
+    <title>Privacy and credits · INFINITO</title>
+    <!-- Privacy and credits: a static page, no script; the guard above is the start page's own, word for word. -->
+    <style>
+      @font-face { font-family: 'Outfit'; src: url('./fonts/Outfit-wght.ttf'); font-weight: 100 900; font-display: swap; }
+      :root { --night: #0E1420; --night-2: #151C33; --text: #FFF8EE; --text-2: #CFE2F1; --gold: #F3CF86; --sky: #7CC4EA; }
+      html { background: linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%) fixed; }
+      body {
+        margin: 0 auto; max-width: 40rem; padding: 40px 22px 64px; color: var(--text); font: 300 17px/1.6 'Outfit', system-ui, sans-serif;
+      }
+      .word { font-weight: 200; font-size: 15px; letter-spacing: 0.42em; margin: 0 0 6px; color: var(--text-2); }
+      h1 { font-weight: 300; font-size: 30px; letter-spacing: 0.02em; margin: 0 0 28px; }
+      h2 { font-weight: 400; font-size: 14px; letter-spacing: 0.24em; margin: 36px 0 12px; color: var(--gold); }
+      p, li { margin: 0 0 14px; }
+      strong { font-weight: 500; color: var(--text); }
+      ul { padding-left: 1.1em; }
+      a { color: var(--sky); }
+      a:focus-visible { outline: 2px solid rgba(243, 207, 134, 0.8); outline-offset: 3px; }
+      .back { display: inline-block; margin-top: 28px; }
+      .rights { margin-top: 28px; color: var(--text-2); font-size: 15px; }
+    </style>
+  </head>
+  <body>
+    <p class="word">INFINITO</p>
+    <h1>Privacy and credits</h1>
+
+    <h2>PRIVACY</h2>
+    <p>INFINITO has no accounts, no ads, no analytics and no cookies.</p>
+    <p><strong>Microphone (optional).</strong> Your browser asks for it only if you tap &ldquo;Let INFINITO hear your breath — nothing is recorded or sent&rdquo;. INFINITO then measures, in memory, how loud your breath is. Audio is never recorded, stored or sent.</p>
+    <p><strong>Hands, head and room.</strong> Hand tracking, head position and room data (planes and mesh from WebXR) are used on your device during the session. They are not stored or sent.</p>
+    <p><strong>On your device.</strong> Your browser&rsquo;s local storage keeps small items: whether you have visited, the visitors you have seen, your garden, your sky and a harp motif. Session storage keeps your &ldquo;Again&rdquo; choice for one reload. None of it leaves your device. Clear this site&rsquo;s data in your browser to remove it.</p>
+    <p><strong>After loading.</strong> The page&rsquo;s content policy lets it fetch only its own files, so it is set not to send data to any other site.</p>
+    <p><strong>Hosting.</strong> The page is served by a static web host. Like most hosts, it may log technical data, such as your IP address, under its own policy. INFINITO runs no analytics and holds no personal data.</p>
+    <p><strong>Contact.</strong> For questions about this page, use the INFINITO entry on Devpost (Meta VR Start Developer Competition 2026).</p>
+
+    <h2>CREDITS</h2>
+    <ul>
+      <li>Hand model: generic-hand from @webxr-input-profiles/assets (MIT, © 2019 Amazon).</li>
+      <li>Singing-bowl recordings: BigSoundBank, Joseph Sardin (CC0).</li>
+      <li>Tanpura recordings: Freesound, luckylittleraven (CC0).</li>
+      <li>Typeface: Outfit (SIL Open Font License 1.1, © 2021 The Outfit Project Authors).</li>
+      <li>Voice: INFINITO&rsquo;s voice is AI-generated and pre-recorded with Chatterbox (MIT), from a synthetic voice prompt made with Parler-TTS Mini v1 (Apache-2.0), which was trained on LibriTTS-R and Multilingual LibriSpeech (CC BY 4.0). No real person&rsquo;s voice is used.</li>
+      <li>Art: the hand cards and the start-page background were made with AI, from our own screenshots and prompts.</li>
+      <li>Software included in the app: see <a href="./THIRD-PARTY-NOTICES.txt">THIRD-PARTY-NOTICES.txt</a>.</li>
+    </ul>
+
+    <p class="rights">© 2026 INFINITO. All rights reserved.</p>
+    <a class="back" href="./">Back to INFINITO</a>
+  </body>
+</html>
