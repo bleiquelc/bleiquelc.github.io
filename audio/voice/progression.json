@@ -1,0 +1,85 @@
+{
+  "voice": "G: Parler-TTS Mini v1 calida seed 11 (synthetic prompt)",
+  "speed": 1.0,
+  "model": "ResembleAI/chatterbox",
+  "post": "chatterbox-g",
+  "loudness": -20.0,
+  "reference": "g-parler-mini-calida-s11.wav",
+  "settings": {
+    "exaggeration": 0.3,
+    "cfg_weight": 0.3,
+    "temperature": 0.7
+  },
+  "lines": {
+    "n1": {
+      "text": "If the pace doesn't suit you, breathe your own way.",
+      "file": "audio/voice/progression/n1.mp3",
+      "seconds": 3.6,
+      "seed": 47,
+      "lufs": -20.0
+    },
+    "n2": {
+      "text": "If your mind wanders, that's fine. Come back to the breath.",
+      "file": "audio/voice/progression/n2.mp3",
+      "seconds": 3.48,
+      "seed": 7,
+      "lufs": -19.9
+    },
+    "n6": {
+      "text": "Follow the sound until it fades.",
+      "file": "audio/voice/progression/n6.mp3",
+      "seconds": 2.78,
+      "seed": 11,
+      "lufs": -19.9
+    },
+    "n7": {
+      "text": "Count each breath out, up to ten.",
+      "file": "audio/voice/progression/n7.mp3",
+      "seconds": 3.14,
+      "seed": 7,
+      "lufs": -20.1
+    },
+    "n8": {
+      "text": "Lost count? Start again at one.",
+      "file": "audio/voice/progression/n8.mp3",
+      "seconds": 2.96,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "n9": {
+      "text": "Stay still for a while, and see if the creatures come near.",
+      "file": "audio/voice/progression/n9.mp3",
+      "seconds": 4.04,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "n10": {
+      "text": "Rest your gaze on the light.",
+      "file": "audio/voice/progression/n10.mp3",
+      "seconds": 1.94,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "n11": {
+      "text": "Today I'll be quiet. The music is yours.",
+      "file": "audio/voice/progression/n11.mp3",
+      "seconds": 5.36,
+      "seed": 7,
+      "lufs": -20.0
+    },
+    "n12": {
+      "text": "Choose one thing to bring this focus to today.",
+      "file": "audio/voice/progression/n12.mp3",
+      "seconds": 3.4,
+      "seed": 11,
+      "lufs": -20.0
+    },
+    "n13": {
+      "text": "Notice the room around you again.",
+      "file": "audio/voice/progression/n13.mp3",
+      "seconds": 2.3,
+      "seed": 7,
+      "lufs": -20.0
+    }
+  }
+}
