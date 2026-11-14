@@ -1,7 +1,9 @@
 <!-- Image paths are relative to the page, not to this file. The arrival (founder, 7-oct: "it must feel like the brand, not a settings card"): the upright 8, then INFINITO and the tagline in Outfit (an image: herramientas/fuentes/lema-outfit.py),
 the colour of your sky (seven, light to deep; the chosen one ringed in gold and named) and how long. Light text on the dusk
 pane of the hand cards, drawn behind it in code (src/ui/dusk-pane.ts); the root itself has no surface. Authored in cm at
-the final card's scale and shown at ARRIVAL.scale. Chosen with a hand ray and a pinch. -->
+the final card's scale and shown at ARRIVAL.scale. Chosen with a hand ray and a pinch.
+#arrival-mixed (founder, 14-nov, row 247; src/ui/mixed-card.ts): a second face of this same panel, shown before the session
+behind DEV ?escaneo=tarjeta in place of the skies and the minutes (the mark, the brand and the hint stay); hidden otherwise. -->
 <style>
   .arrival-root {
     flex-direction: column;
@@ -134,12 +136,86 @@ the final card's scale and shown at ARRIVAL.scale. Chosen with a hand ray and a 
     margin-top: 3;
     color: #F3CF86;
   }
+  .arrival-scan-row {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3.4;
+  }
+  .arrival-scan {
+    width: 46;
+  }
+  .arrival-scan-line {
+    text-align: center;
+    font-size: 3;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-top: 1.8;
+    color: rgba(255, 255, 255, 0.72);
+  }
+  .arrival-mixed {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+  .mixed-title {
+    text-align: center;
+    font-size: 4.8;
+    font-weight: 300;
+    letter-spacing: 0.3;
+    line-height: 1.3;
+    margin-top: 4.6;
+    color: #FFF8EE;
+  }
+  .mixed-line {
+    width: 84;
+    text-align: center;
+    font-size: 3.8;
+    font-weight: 400;
+    letter-spacing: 0.3;
+    line-height: 1.3;
+    margin-top: 2.6;
+    color: #BFE3F6;
+  }
+  .mixed-line-2 {
+    margin-top: 0;
+  }
+  .mixed-choices {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4;
+    margin-top: 4.4;
+  }
+  .mixed-scan {
+    width: 44;
+  }
+  .mixed-go {
+    width: 36;
+  }
+  .mixed-foot {
+    text-align: center;
+    font-size: 3;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-top: 2.6;
+    color: rgba(255, 255, 255, 0.72);
+  }
 </style>
 <div class="arrival-root">
   <img id="arrival-mark" class="arrival-mark" src="./icons/icon-spatial-180.png" />
   <img id="arrival-brand" class="arrival-brand" src="./ui/arrival-brand.png" />
+  <div id="arrival-mixed" class="arrival-mixed">
+    <div id="mixed-title" class="mixed-title">Made for mixed reality</div>
+    <div id="mixed-line" class="mixed-line">With this room scanned,</div>
+    <div id="mixed-line-2" class="mixed-line mixed-line-2">its walls open to the sky.</div>
+    <div class="mixed-choices">
+      <button id="mixed-scan" class="arrival-choice mixed-scan">Scan this room</button>
+      <button id="mixed-continue" class="arrival-choice mixed-go">Continue</button>
+    </div>
+    <div id="mixed-foot" class="mixed-foot">New room? About a minute.</div>
+  </div>
   <div id="arrival-sky-question" class="arrival-question">Choose your sky</div>
-  <div class="arrival-sky-row">
+  <div id="arrival-sky-row" class="arrival-sky-row">
     <button id="arrival-sky-morningAir" class="arrival-sky sky-morningAir"></button>
     <button id="arrival-sky-clearSky" class="arrival-sky sky-clearSky"></button>
     <button id="arrival-sky-azure" class="arrival-sky sky-azure"></button>
@@ -148,11 +224,11 @@ the final card's scale and shown at ARRIVAL.scale. Chosen with a hand ray and a 
     <button id="arrival-sky-indigo" class="arrival-sky sky-indigo"></button>
     <button id="arrival-sky-deepNight" class="arrival-sky sky-deepNight"></button>
   </div>
-  <div class="arrival-sky-ends">
+  <div id="arrival-sky-ends" class="arrival-sky-ends">
     <div class="arrival-sky-end">Lighter for mornings</div>
     <div class="arrival-sky-end">Deeper for evenings</div>
   </div>
-  <div class="arrival-sky-names">
+  <div id="arrival-sky-names" class="arrival-sky-names">
     <div id="arrival-sky-name-morningAir" class="arrival-sky-name">Morning air</div>
     <div id="arrival-sky-name-clearSky" class="arrival-sky-name">Clear sky</div>
     <div id="arrival-sky-name-azure" class="arrival-sky-name">Azure</div>
@@ -161,12 +237,17 @@ the final card's scale and shown at ARRIVAL.scale. Chosen with a hand ray and a 
     <div id="arrival-sky-name-indigo" class="arrival-sky-name">Indigo</div>
     <div id="arrival-sky-name-deepNight" class="arrival-sky-name">Deep night</div>
   </div>
+  <div id="arrival-scan-row" class="arrival-scan-row">
+    <button id="arrival-scan" class="arrival-choice arrival-scan">Scan your room</button>
+    <div id="arrival-scan-line" class="arrival-scan-line">New room? About a minute, then its walls open.</div>
+  </div>
   <div id="arrival-question" class="arrival-question">Choose how many minutes you'd like for this session.</div>
-  <div class="arrival-choices">
+  <div id="arrival-choices" class="arrival-choices">
     <button id="arrival-full" class="arrival-choice">10 minutes</button>
     <button id="arrival-quick" class="arrival-choice">7 minutes</button>
   </div>
   <div id="arrival-hint" class="arrival-hint">Point and pinch to choose</div>
   <div id="arrival-room" class="arrival-room">Without your room's walls, the sky opens all around you.</div>
   <div id="arrival-window" class="arrival-room">Face the window. The sky begins there.</div>
+  <div id="arrival-begin" class="arrival-room">Or begin as you are: the sky opens all around you.</div>
 </div>
