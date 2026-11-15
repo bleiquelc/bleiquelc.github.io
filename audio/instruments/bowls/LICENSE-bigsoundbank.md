@@ -1,6 +1,6 @@
 # Provenance — Tibetan bowl recordings (BigSoundBank, CC0)
 
-The five FLAC files in this folder are **edited derivatives** of recordings published by **Joseph Sardin** on
+The four FLAC files in this folder are **edited derivatives** of recordings published by **Joseph Sardin** on
 [BigSoundBank](https://bigsoundbank.com) under **CC0 1.0 Universal** (public-domain dedication by the author; the site's
 licence page also offers WTFPL): https://bigsoundbank.com/licenses.html — "Adapt, remix, transform and create from material.
 Use, including for commercial purposes. Without any restrictions. Without asking permission." Attribution is not required ("Nothing is mandatory, but
@@ -14,6 +14,9 @@ definitely appreciated"); this file is our courtesy credit and our evidence of p
 | bowl-struck-3.flac | 2554 — Tibetan Bowl Struck #3 (10 s) | https://bigsoundbank.com/tibetan-bowl-struck-3-s2554.html |
 | bowl-struck-4.flac | 2555 — Tibetan Bowl Struck #4 (14 s) | https://bigsoundbank.com/tibetan-bowl-struck-4-s2555.html |
 | bowl-singing.flac | 1109 — Tibetan bowl singing (44 s) | https://bigsoundbank.com/tibetan-bowl-singing-s1109.html |
+
+`bowl-singing.flac` was prepared the same way, but since 2026-11-15 it is not in this folder and does not ship with the app,
+which does not use it. Its rows in this file still identify it.
 
 ## Processing (what differs from the originals)
 

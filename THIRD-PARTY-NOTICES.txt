@@ -12,7 +12,6 @@ ASSETS
 - audio/instruments/tanpura/: tanpura recordings by luckylittleraven, Freesound. CC0 1.0 (public domain). Provenance: audio/instruments/tanpura/LICENSE-freesound.md.
 - fonts/Outfit-wght.ttf: the Outfit typeface. SIL Open Font License 1.1, Copyright 2021 The Outfit Project Authors. Licence text: fonts/OFL.txt.
 - audio/voice/: INFINITO's voice, our own recordings, AI-generated and pre-recorded with Chatterbox (MIT) from a synthetic voice prompt made with Parler-TTS Mini v1 (Apache-2.0), which was trained on LibriTTS-R and Multilingual LibriSpeech (CC BY 4.0). No real person's voice is used.
-- audio/chime.mp3: starter content of the Immersive Web SDK project template. MIT, Copyright (c) Meta Platforms, Inc. and affiliates.
 - hand-cards/ and entry/fondo-*: made with AI, from our own screenshots and prompts.
 Everything else in the build (code, icons, scenes, panels, INFINITO's own renders) is ours.
 
