@@ -3,7 +3,9 @@ the colour of your sky (seven, light to deep; the chosen one ringed in gold and 
 pane of the hand cards, drawn behind it in code (src/ui/dusk-pane.ts); the root itself has no surface. Authored in cm at
 the final card's scale and shown at ARRIVAL.scale. Chosen with a hand ray and a pinch.
 #arrival-mixed (founder, 14-nov, row 247; src/ui/mixed-card.ts): a second face of this same panel, shown before the session
-behind DEV ?escaneo=tarjeta in place of the skies and the minutes (the mark, the brand and the hint stay); hidden otherwise. -->
+behind DEV ?escaneo=tarjeta in place of the skies and the minutes (the mark, the brand and the hint stay); hidden otherwise.
+#mixed-list (founder, 15-nov, row 324; src/ui/card-mic.ts): the card's two optional rows — the room, the breath — then Continue,
+in place of #mixed-choices behind DEV ?tarjeta-micro=fila; a row already done shows as a gold line with a dot, not a button. -->
 <style>
   .arrival-root {
     flex-direction: column;
@@ -192,6 +194,47 @@ behind DEV ?escaneo=tarjeta in place of the skies and the minutes (the mark, the
   .mixed-go {
     width: 36;
   }
+  .mixed-list {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3.6;
+  }
+  .mixed-row {
+    width: 80;
+    margin-top: 2.2;
+  }
+  .mixed-done {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2;
+    width: 80;
+    height: 12;
+    margin-top: 2.2;
+  }
+  .mixed-dot {
+    width: 2.4;
+    height: 2.4;
+    border-radius: 1.2;
+    background-color: #F3CF86;
+  }
+  .mixed-done-text {
+    font-size: 4.2;
+    font-weight: 300;
+    letter-spacing: 0.3;
+    color: #F3CF86;
+  }
+  .mixed-list-foot {
+    margin-top: 1.2;
+  }
+  .mixed-list-go {
+    margin-top: 3.4;
+  }
+  .mixed-later {
+    display: none;
+  }
   .mixed-foot {
     text-align: center;
     font-size: 3;
@@ -208,9 +251,18 @@ behind DEV ?escaneo=tarjeta in place of the skies and the minutes (the mark, the
     <div id="mixed-title" class="mixed-title">Made for mixed reality</div>
     <div id="mixed-line" class="mixed-line">With this room scanned,</div>
     <div id="mixed-line-2" class="mixed-line mixed-line-2">its walls open to the sky.</div>
-    <div class="mixed-choices">
+    <div id="mixed-choices" class="mixed-choices">
       <button id="mixed-scan" class="arrival-choice mixed-scan">Scan this room</button>
       <button id="mixed-continue" class="arrival-choice mixed-go">Continue</button>
+    </div>
+    <div id="mixed-list" class="mixed-list">
+      <button id="mixed-room" class="arrival-choice mixed-row">Scan this room</button>
+      <div id="mixed-room-done" class="mixed-done"><div class="mixed-dot"></div><div id="mixed-room-done-text" class="mixed-done-text">Walls found: no scan needed</div></div>
+      <button id="mixed-breath" class="arrival-choice mixed-row">Let INFINITO hear your breath</button>
+      <div id="mixed-breath-done" class="mixed-done"><div class="mixed-dot"></div><div id="mixed-breath-done-text" class="mixed-done-text">INFINITO hears your breath</div></div>
+      <div id="mixed-breath-foot" class="mixed-foot mixed-list-foot">Nothing is recorded or sent.</div>
+      <div id="mixed-breath-later" class="mixed-foot mixed-list-foot mixed-later">Changed your mind? Allow it in your browser.</div>
+      <button id="mixed-go-list" class="arrival-choice mixed-go mixed-list-go">Continue</button>
     </div>
     <div id="mixed-foot" class="mixed-foot">New room? About a minute.</div>
   </div>
